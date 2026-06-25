@@ -1,6 +1,4 @@
-
-
-    const STORAGE_KEY = "cyberSecurityRoadmapProgress.v1";
+   const STORAGE_KEY = "cyberSecurityRoadmapProgress.v1";
     const DAILY_KEY = "cyberSecurityRoadmapDaily.v1";
 
     const phases = [
@@ -729,7 +727,50 @@
       toastTimer = setTimeout(() => toast.classList.remove("show"), 1700);
     }
 
+    function exportProgress() {
+      const payload = {
+        app: "Cyber Security Roadmap Progress Tracker",
+        exportedAt: new Date().toISOString(),
+        progress: state,
+        daily: dailyState
+      };
+      const blob = new Blob([JSON.stringify(payload, null, 2)], { type: "application/json" });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = `cyber-security-roadmap-progress-${todayKey()}.json`;
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      URL.revokeObjectURL(url);
+      showToast("Progress exported");
+    }
 
+    function importProgress(file) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        try {
+          const payload = JSON.parse(reader.result);
+          const importedProgress = payload.progress || payload;
+          if (!importedProgress || typeof importedProgress !== "object") {
+            throw new Error("Invalid progress file");
+          }
+          state = {
+            checked: importedProgress.checked || {},
+            notes: importedProgress.notes || {},
+            lastUpdated: importedProgress.lastUpdated || new Date().toISOString()
+          };
+          if (payload.daily && typeof payload.daily === "object") dailyState = payload.daily;
+          saveState(false);
+          localStorage.setItem(DAILY_KEY, JSON.stringify(dailyState));
+          renderAll();
+          showToast("Progress imported successfully");
+        } catch (error) {
+          alert("Invalid progress file. Please import a valid JSON export from this tracker.");
+        }
+      };
+      reader.readAsText(file);
+    }
 
     function resetProgress() {
       const confirmed = confirm("Reset all roadmap progress, notes, extras, and daily tracker data?");
@@ -813,6 +854,7 @@
       event.target.value = "";
     });
     document.getElementById("resetBtn").addEventListener("click", resetProgress);
+    document.getElementById("printBtn").addEventListener("click", () => window.print());
 
     document.getElementById("expandBtn").addEventListener("click", event => {
       const details = Array.from(document.querySelectorAll("details.phase-detail"));
