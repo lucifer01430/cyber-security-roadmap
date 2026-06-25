@@ -1,0 +1,868 @@
+
+
+    const STORAGE_KEY = "cyberSecurityRoadmapProgress.v1";
+    const DAILY_KEY = "cyberSecurityRoadmapDaily.v1";
+
+    const phases = [
+      {
+        id: "phase-0",
+        number: 0,
+        title: "Computer Fundamentals",
+        duration: "Week 1",
+        objective: "Build a strong understanding of how computers work internally.",
+        sections: [
+          {
+            title: "Topics",
+            items: [
+              "Introduction to Computers",
+              "Computer Architecture",
+              "CPU and Processing",
+              "RAM, ROM and Cache Memory",
+              "HDD vs SSD",
+              "Motherboard Components",
+              "BIOS vs UEFI",
+              "Boot Process",
+              "Operating System Basics",
+              "Kernel",
+              "Process vs Thread",
+              "Virtual Memory",
+              "File Systems (NTFS, FAT32, EXT4)",
+              "32-bit vs 64-bit Systems",
+              "Users and Permissions"
+            ]
+          }
+        ],
+        outcome: "Understand how a computer actually works before learning security."
+      },
+      {
+        id: "phase-1",
+        number: 1,
+        title: "Networking Fundamentals",
+        duration: "Weeks 2-4",
+        objective: "Learn how devices communicate over networks.",
+        sections: [
+          {
+            title: "Topics",
+            items: [
+              "What is a Network?",
+              "LAN, MAN, WAN",
+              "Network Topologies",
+              "Router",
+              "Switch",
+              "Hub",
+              "Firewall",
+              "Modem",
+              "Access Point",
+              "MAC Address",
+              "IP Address",
+              "Public vs Private IP",
+              "IPv4 and IPv6",
+              "Subnetting Basics",
+              "DNS",
+              "DHCP",
+              "NAT",
+              "Gateway",
+              "Ports",
+              "TCP",
+              "UDP",
+              "ICMP",
+              "ARP",
+              "HTTP",
+              "HTTPS",
+              "FTP",
+              "SSH",
+              "SMTP",
+              "POP3",
+              "IMAP",
+              "VPN",
+              "OSI Model",
+              "TCP/IP Model"
+            ]
+          },
+          {
+            title: "Practical",
+            items: [
+              "Ping",
+              "Traceroute",
+              "nslookup",
+              "ipconfig / ifconfig",
+              "netstat"
+            ]
+          }
+        ],
+        outcome: "Understand how the Internet actually works."
+      },
+      {
+        id: "phase-2",
+        number: 2,
+        title: "Linux Fundamentals",
+        duration: "Weeks 5-6",
+        objective: "Become comfortable with Linux.",
+        sections: [
+          {
+            title: "Topics",
+            items: [
+              "Linux File Structure",
+              "Directory Hierarchy",
+              "Users and Groups",
+              "Permissions",
+              "chmod",
+              "chown",
+              "File Management",
+              "Process Management",
+              "Package Management",
+              "SSH",
+              "Services",
+              "Logs",
+              "Networking Commands",
+              "Cron Jobs",
+              "Environment Variables"
+            ]
+          },
+          {
+            title: "Commands",
+            items: [
+              "pwd",
+              "ls",
+              "cd",
+              "mkdir",
+              "rm",
+              "cp",
+              "mv",
+              "cat",
+              "grep",
+              "find",
+              "sudo",
+              "chmod command practice",
+              "chown command practice",
+              "ps",
+              "top",
+              "htop",
+              "systemctl",
+              "journalctl",
+              "curl",
+              "wget"
+            ]
+          }
+        ],
+        outcome: "Comfortably manage Linux systems."
+      },
+      {
+        id: "phase-3",
+        number: 3,
+        title: "Web Development Fundamentals Revision",
+        duration: "Week 7",
+        objective: "Understand web applications from a security perspective.",
+        sections: [
+          {
+            title: "Topics",
+            items: [
+              "Client-Server Architecture",
+              "HTTP Request/Response",
+              "Headers",
+              "Cookies",
+              "Sessions",
+              "Authentication",
+              "Authorization",
+              "REST APIs",
+              "JSON",
+              "CORS",
+              "Same Origin Policy",
+              "JWT",
+              "Reverse Proxy",
+              "SSL/TLS Basics"
+            ]
+          }
+        ],
+        outcome: "Understand how web applications communicate."
+      },
+      {
+        id: "phase-4",
+        number: 4,
+        title: "Cyber Security Fundamentals",
+        duration: "Weeks 8-9",
+        objective: "Learn core security concepts.",
+        sections: [
+          {
+            title: "Topics",
+            items: [
+              "CIA Triad",
+              "Risk",
+              "Threat",
+              "Vulnerability",
+              "Exploit",
+              "Asset",
+              "Attack Surface",
+              "Security Controls",
+              "Types of Hackers",
+              "Cyber Kill Chain",
+              "Social Engineering",
+              "Malware Basics",
+              "Ransomware",
+              "Phishing",
+              "Password Security",
+              "MFA"
+            ]
+          }
+        ],
+        outcome: "Understand the language of Cyber Security."
+      },
+      {
+        id: "phase-5",
+        number: 5,
+        title: "Web Application Security",
+        duration: "Weeks 10-12",
+        objective: "Learn how websites are attacked and how to prevent common vulnerabilities.",
+        sections: [
+          {
+            title: "Topics",
+            items: [
+              "OWASP Top 10",
+              "SQL Injection",
+              "Cross Site Scripting (XSS)",
+              "CSRF",
+              "Broken Authentication",
+              "IDOR",
+              "SSRF",
+              "File Upload Vulnerabilities",
+              "Command Injection",
+              "Security Misconfiguration",
+              "Authentication Bypass",
+              "Session Hijacking"
+            ]
+          }
+        ],
+        outcome: "Understand common web vulnerabilities and how to prevent them."
+      },
+      {
+        id: "phase-6",
+        number: 6,
+        title: "Cyber Security Tools",
+        duration: "Weeks 13-15",
+        objective: "Learn professional security tools and when to use them.",
+        sections: [
+          {
+            title: "Tools",
+            items: [
+              "Nmap",
+              "Wireshark",
+              "Burp Suite",
+              "Gobuster",
+              "Dirsearch",
+              "Nikto",
+              "WhatWeb",
+              "Hydra Basics"
+            ]
+          }
+        ],
+        outcome: "Learn professional security tools."
+      },
+      {
+        id: "phase-7",
+        number: 7,
+        title: "Penetration Testing Basics",
+        duration: "Weeks 16-18",
+        objective: "Understand the professional penetration testing workflow.",
+        sections: [
+          {
+            title: "Topics",
+            items: [
+              "Information Gathering",
+              "Enumeration",
+              "Vulnerability Assessment",
+              "Exploitation Basics",
+              "Privilege Escalation Basics",
+              "Reporting"
+            ]
+          }
+        ],
+        outcome: "Understand the penetration testing workflow."
+      },
+      {
+        id: "phase-8",
+        number: 8,
+        title: "Digital Forensics",
+        duration: "Weeks 19-21",
+        objective: "Learn investigation fundamentals and evidence handling basics.",
+        sections: [
+          {
+            title: "Topics",
+            items: [
+              "Introduction to Digital Forensics",
+              "Chain of Custody",
+              "Disk Imaging",
+              "Memory Analysis",
+              "Log Analysis",
+              "Windows Event Logs",
+              "Browser Forensics",
+              "Mobile Forensics Basics"
+            ]
+          }
+        ],
+        outcome: "Understand investigation fundamentals."
+      },
+      {
+        id: "phase-9",
+        number: 9,
+        title: "Security Audit",
+        duration: "Weeks 22-24",
+        objective: "Learn how to perform basic security audits with proper documentation.",
+        sections: [
+          {
+            title: "Topics",
+            items: [
+              "Vulnerability Assessment",
+              "Security Audit Process",
+              "Risk Assessment",
+              "Compliance Basics",
+              "Documentation",
+              "Reporting",
+              "Audit Checklist Preparation"
+            ]
+          }
+        ],
+        outcome: "Perform basic security audits."
+      },
+      {
+        id: "phase-10",
+        number: 10,
+        title: "Government Project Readiness",
+        duration: "Weeks 25-26",
+        objective: "Prepare for client-facing and government security project participation.",
+        sections: [
+          {
+            title: "Learn",
+            items: [
+              "Audit Documentation",
+              "Client Communication",
+              "Report Writing",
+              "Vulnerability Report Format",
+              "Executive Summary",
+              "Technical Findings",
+              "Remediation Recommendations"
+            ]
+          }
+        ],
+        outcome: "Be ready to participate in client and government security projects."
+      }
+    ];
+
+    const extras = [
+      {
+        id: "platforms",
+        title: "Practical Platforms",
+        subtitle: "Recommended after Phase 5",
+        items: ["TryHackMe", "PortSwigger Web Security Academy", "OverTheWire Linux Practice", "OWASP Juice Shop"]
+      },
+      {
+        id: "certifications",
+        title: "Certifications Later",
+        subtitle: "Use after building strong basics",
+        items: ["Google Cybersecurity Professional Certificate", "CompTIA Security+", "eJPT", "CEH Optional", "PNPT Later"]
+      },
+      {
+        id: "final-goals",
+        title: "Final Goal Checklist",
+        subtitle: "Skills you should be able to demonstrate",
+        goals: [
+          "Understand computer systems and networking.",
+          "Work confidently on Linux servers.",
+          "Secure web applications and identify common vulnerabilities.",
+          "Perform basic vulnerability assessments and security audits.",
+          "Use professional cybersecurity tools.",
+          "Contribute to cyber security audit, application security, and digital forensics projects."
+        ]
+      }
+    ];
+
+    const dailyTasks = [
+      { id: "theory", label: "Theory: 45-60 minutes" },
+      { id: "hands-on", label: "Hands-on Practice: 45-60 minutes" },
+      { id: "notes", label: "Notes and Revision: 20-30 minutes" }
+    ];
+
+    let state = loadState();
+    let dailyState = loadDailyState();
+
+    const roadmapEl = document.getElementById("roadmap");
+    const timelineEl = document.getElementById("timeline");
+    const extrasGridEl = document.getElementById("extrasGrid");
+    const searchInput = document.getElementById("searchInput");
+    const filterSelect = document.getElementById("filterSelect");
+    const toast = document.getElementById("toast");
+
+    function slug(value) {
+      return String(value)
+        .toLowerCase()
+        .replace(/&/g, "and")
+        .replace(/[^a-z0-9]+/g, "-")
+        .replace(/^-+|-+$/g, "");
+    }
+
+    function escapeHTML(value) {
+      return String(value)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    }
+
+    function itemId(phase, section, item) {
+      return `${phase.id}.${slug(section.title)}.${slug(item)}`;
+    }
+
+    function extraItemId(extra, item) {
+      return `extra.${extra.id}.${slug(item)}`;
+    }
+
+    function getPhaseItems(phase) {
+      return phase.sections.flatMap(section => section.items.map(item => itemId(phase, section, item)));
+    }
+
+    function getCoreItemIds() {
+      return phases.flatMap(getPhaseItems);
+    }
+
+    function getExtraItemIds() {
+      return extras.flatMap(extra => {
+        const list = extra.items || extra.goals || [];
+        return list.map(item => extraItemId(extra, item));
+      });
+    }
+
+    function loadState() {
+      try {
+        const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));
+        if (saved && typeof saved === "object") {
+          return {
+            checked: saved.checked || {},
+            notes: saved.notes || {},
+            lastUpdated: saved.lastUpdated || null
+          };
+        }
+      } catch (error) {
+        console.warn("Could not load saved roadmap progress", error);
+      }
+      return { checked: {}, notes: {}, lastUpdated: null };
+    }
+
+    function saveState(show = true) {
+      state.lastUpdated = new Date().toISOString();
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+      if (show) showToast("Progress saved");
+    }
+
+    function loadDailyState() {
+      try {
+        return JSON.parse(localStorage.getItem(DAILY_KEY)) || {};
+      } catch (error) {
+        return {};
+      }
+    }
+
+    function saveDailyState() {
+      localStorage.setItem(DAILY_KEY, JSON.stringify(dailyState));
+      showToast("Daily tracker updated");
+    }
+
+    function todayKey() {
+      const date = new Date();
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, "0");
+      const day = String(date.getDate()).padStart(2, "0");
+      return `${year}-${month}-${day}`;
+    }
+
+    function phaseStats(phase) {
+      const ids = getPhaseItems(phase);
+      const done = ids.filter(id => state.checked[id]).length;
+      const percent = ids.length ? Math.round((done / ids.length) * 100) : 0;
+      return { total: ids.length, done, percent };
+    }
+
+    function overallStats() {
+      const coreIds = getCoreItemIds();
+      const done = coreIds.filter(id => state.checked[id]).length;
+      const percent = coreIds.length ? Math.round((done / coreIds.length) * 100) : 0;
+      const phaseDone = phases.filter(phase => phaseStats(phase).percent === 100).length;
+      return { total: coreIds.length, done, percent, phaseDone };
+    }
+
+    function statusForPercent(percent) {
+      if (percent === 100) return { key: "completed", label: "Completed" };
+      if (percent > 0) return { key: "in-progress", label: "In progress" };
+      return { key: "not-started", label: "Not started" };
+    }
+
+    function renderRoadmap() {
+      roadmapEl.innerHTML = phases.map((phase, index) => {
+        const stats = phaseStats(phase);
+        const status = statusForPercent(stats.percent);
+        const sectionsHTML = phase.sections.map(section => {
+          const itemsHTML = section.items.map(item => {
+            const id = itemId(phase, section, item);
+            const checked = Boolean(state.checked[id]);
+            return `
+              <label class="check-item ${checked ? "is-checked" : ""}">
+                <input type="checkbox" class="road-item" data-phase-id="${phase.id}" data-item-id="${id}" ${checked ? "checked" : ""} />
+                <span>${escapeHTML(item)}</span>
+              </label>
+            `;
+          }).join("");
+          return `
+            <section class="topic-section ${section.items.length > 12 ? "wide" : ""}">
+              <h3 class="section-title">${escapeHTML(section.title)}</h3>
+              <div class="check-grid">${itemsHTML}</div>
+            </section>
+          `;
+        }).join("");
+
+        const isOpen = index <= 1 || (stats.percent > 0 && stats.percent < 100);
+        return `
+          <article class="phase-card" id="${phase.id}" data-phase-id="${phase.id}" data-status="${status.key}" data-search="${escapeHTML([phase.title, phase.duration, phase.objective, phase.outcome, ...phase.sections.flatMap(section => [section.title, ...section.items])].join(" ").toLowerCase())}">
+            <details class="phase-detail" ${isOpen ? "open" : ""}>
+              <summary class="phase-summary">
+                <div class="phase-number">${phase.number}</div>
+                <div>
+                  <div class="phase-title-row">
+                    <span class="phase-title">${escapeHTML(phase.title)}</span>
+                    <span class="badge duration-badge">${escapeHTML(phase.duration)}</span>
+                    <span class="badge status-badge ${status.key === "completed" ? "done" : status.key === "in-progress" ? "progress" : ""}" data-status-label>${status.label}</span>
+                  </div>
+                  <p class="phase-objective">${escapeHTML(phase.objective)}</p>
+                </div>
+                <div class="phase-progress-wrap">
+                  <div class="phase-percent" data-phase-percent>${stats.percent}%</div>
+                  <div class="phase-meta" data-phase-meta>${stats.done}/${stats.total} topics</div>
+                  <div class="bar"><span data-phase-bar style="width:${stats.percent}%"></span></div>
+                </div>
+              </summary>
+              <div class="phase-body">
+                <div class="phase-inner">
+                  <div class="section-grid">${sectionsHTML}</div>
+                  <div class="phase-footer">
+                    <div class="outcome">
+                      <h4>Outcome</h4>
+                      <p>${escapeHTML(phase.outcome)}</p>
+                      <div class="phase-actions">
+                        <button type="button" data-action="complete-phase" data-phase-id="${phase.id}">Mark phase complete</button>
+                        <button type="button" data-action="clear-phase" data-phase-id="${phase.id}" class="ghost-btn">Clear phase</button>
+                      </div>
+                    </div>
+                    <div class="notes-box">
+                      <h4>Phase notes</h4>
+                      <textarea class="phase-notes" data-phase-id="${phase.id}" placeholder="Write key notes, resources, doubts, commands, or revision points here..."></textarea>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </details>
+          </article>
+        `;
+      }).join("");
+
+      document.querySelectorAll(".phase-notes").forEach(textarea => {
+        textarea.value = state.notes[textarea.dataset.phaseId] || "";
+      });
+    }
+
+    function renderTimeline() {
+      const currentPhase = getCurrentPhase();
+      timelineEl.innerHTML = phases.map(phase => {
+        const stats = phaseStats(phase);
+        const done = stats.percent === 100;
+        const current = currentPhase && currentPhase.id === phase.id;
+        return `
+          <button class="timeline-pill ${done ? "done" : ""} ${current ? "current" : ""}" type="button" data-scroll-to="${phase.id}">
+            <span class="timeline-title">Phase ${phase.number}</span>
+            <span class="timeline-meta">${escapeHTML(phase.duration)} - ${stats.percent}%</span>
+            <span class="tiny-bar"><span style="width:${stats.percent}%"></span></span>
+          </button>
+        `;
+      }).join("");
+    }
+
+    function renderDailyTracker() {
+      const key = todayKey();
+      if (!dailyState[key]) dailyState[key] = {};
+      const dateText = new Date().toLocaleDateString(undefined, { weekday: "long", year: "numeric", month: "short", day: "numeric" });
+      document.getElementById("dailyDate").textContent = dateText;
+      document.getElementById("dailyList").innerHTML = dailyTasks.map(task => `
+        <label>
+          <input type="checkbox" class="daily-item" data-daily-id="${task.id}" ${dailyState[key][task.id] ? "checked" : ""} />
+          <span>${escapeHTML(task.label)}</span>
+        </label>
+      `).join("");
+      updateDailyLine();
+    }
+
+    function updateDailyLine() {
+      const key = todayKey();
+      const done = dailyTasks.filter(task => dailyState[key] && dailyState[key][task.id]).length;
+      document.getElementById("dailyLine").textContent = `${done}/${dailyTasks.length} daily tasks done - Total: around 2 to 2.5 hours/day`;
+    }
+
+    function renderExtras() {
+      extrasGridEl.innerHTML = extras.map(extra => {
+        const list = extra.items || extra.goals || [];
+        if (extra.goals) {
+          return `
+            <section class="extras-card">
+              <h3>${escapeHTML(extra.title)}</h3>
+              <p>${escapeHTML(extra.subtitle)}</p>
+              <ol class="goal-list">
+                ${extra.goals.map(goal => `<li>${escapeHTML(goal)}</li>`).join("")}
+              </ol>
+            </section>
+          `;
+        }
+        return `
+          <section class="extras-card">
+            <h3>${escapeHTML(extra.title)}</h3>
+            <p>${escapeHTML(extra.subtitle)}</p>
+            <div class="daily-list">
+              ${list.map(item => {
+                const id = extraItemId(extra, item);
+                return `
+                  <label>
+                    <input type="checkbox" class="extra-item" data-item-id="${id}" ${state.checked[id] ? "checked" : ""} />
+                    <span>${escapeHTML(item)}</span>
+                  </label>
+                `;
+              }).join("")}
+            </div>
+          </section>
+        `;
+      }).join("");
+    }
+
+    function updateDashboard() {
+      const stats = overallStats();
+      document.getElementById("overallPercent").textContent = `${stats.percent}%`;
+      document.getElementById("overallRing").style.setProperty("--ring-deg", `${stats.percent * 3.6}deg`);
+      document.getElementById("completedTasks").textContent = stats.done;
+      document.getElementById("totalTasks").textContent = stats.total;
+      document.getElementById("completedPhases").textContent = `${stats.phaseDone}/${phases.length}`;
+
+      const focus = getCurrentPhase();
+      const focusEl = document.getElementById("currentFocus");
+      if (focus) {
+        const phaseProgress = phaseStats(focus);
+        focusEl.innerHTML = `<strong>Phase ${focus.number}: ${escapeHTML(focus.title)}</strong><span>${escapeHTML(focus.duration)} - ${phaseProgress.percent}% complete</span>`;
+      } else {
+        focusEl.innerHTML = `<strong>Roadmap completed</strong><span>You have completed all core phases. Great work.</span>`;
+      }
+
+      renderAchievements(stats.percent, stats.phaseDone);
+    }
+
+    function updatePhaseCard(phaseId) {
+      const phase = phases.find(item => item.id === phaseId);
+      const card = document.querySelector(`.phase-card[data-phase-id="${phaseId}"]`);
+      if (!phase || !card) return;
+      const stats = phaseStats(phase);
+      const status = statusForPercent(stats.percent);
+      card.dataset.status = status.key;
+      card.querySelector("[data-phase-percent]").textContent = `${stats.percent}%`;
+      card.querySelector("[data-phase-meta]").textContent = `${stats.done}/${stats.total} topics`;
+      card.querySelector("[data-phase-bar]").style.width = `${stats.percent}%`;
+      const label = card.querySelector("[data-status-label]");
+      label.textContent = status.label;
+      label.className = `badge status-badge ${status.key === "completed" ? "done" : status.key === "in-progress" ? "progress" : ""}`;
+    }
+
+    function renderAchievements(percent, completedPhaseCount) {
+      const achievements = [
+        { label: "Foundation Started", unlocked: percent > 0 },
+        { label: "5 Phases Done", unlocked: completedPhaseCount >= 5 },
+        { label: "Halfway", unlocked: percent >= 50 },
+        { label: "Audit Ready", unlocked: completedPhaseCount >= 10 },
+        { label: "Professional Track", unlocked: percent === 100 }
+      ];
+      document.getElementById("achievementList").innerHTML = achievements.map(item => `
+        <span class="achievement ${item.unlocked ? "unlocked" : ""}">${item.unlocked ? "Unlocked" : "Locked"}: ${escapeHTML(item.label)}</span>
+      `).join("");
+    }
+
+    function getCurrentPhase() {
+      return phases.find(phase => phaseStats(phase).percent < 100) || null;
+    }
+
+    function setPhaseCompletion(phaseId, checked) {
+      const phase = phases.find(item => item.id === phaseId);
+      if (!phase) return;
+      getPhaseItems(phase).forEach(id => {
+        state.checked[id] = checked;
+        const input = document.querySelector(`input[data-item-id="${id}"]`);
+        if (input) {
+          input.checked = checked;
+          input.closest(".check-item")?.classList.toggle("is-checked", checked);
+        }
+      });
+      updatePhaseCard(phaseId);
+      updateDashboard();
+      renderTimeline();
+      saveState();
+      applyFilters();
+    }
+
+    function applyFilters() {
+      const query = searchInput.value.trim().toLowerCase();
+      const filter = filterSelect.value;
+      let visible = 0;
+      document.querySelectorAll(".phase-card").forEach(card => {
+        const matchesSearch = !query || card.dataset.search.includes(query);
+        const matchesFilter = filter === "all" || card.dataset.status === filter;
+        const show = matchesSearch && matchesFilter;
+        card.style.display = show ? "block" : "none";
+        if (show) visible += 1;
+      });
+      document.getElementById("emptyState").style.display = visible ? "none" : "block";
+    }
+
+    let toastTimer = null;
+    function showToast(message) {
+      toast.textContent = message;
+      toast.classList.add("show");
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => toast.classList.remove("show"), 1700);
+    }
+
+    function exportProgress() {
+      const payload = {
+        app: "Cyber Security Roadmap Progress Tracker",
+        exportedAt: new Date().toISOString(),
+        progress: state,
+        daily: dailyState
+      };
+      const blob = new Blob([JSON.stringify(payload, null, 2)], { type: "application/json" });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = `cyber-security-roadmap-progress-${todayKey()}.json`;
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      URL.revokeObjectURL(url);
+      showToast("Progress exported");
+    }
+
+    function importProgress(file) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        try {
+          const payload = JSON.parse(reader.result);
+          const importedProgress = payload.progress || payload;
+          if (!importedProgress || typeof importedProgress !== "object") {
+            throw new Error("Invalid progress file");
+          }
+          state = {
+            checked: importedProgress.checked || {},
+            notes: importedProgress.notes || {},
+            lastUpdated: importedProgress.lastUpdated || new Date().toISOString()
+          };
+          if (payload.daily && typeof payload.daily === "object") dailyState = payload.daily;
+          saveState(false);
+          localStorage.setItem(DAILY_KEY, JSON.stringify(dailyState));
+          renderAll();
+          showToast("Progress imported successfully");
+        } catch (error) {
+          alert("Invalid progress file. Please import a valid JSON export from this tracker.");
+        }
+      };
+      reader.readAsText(file);
+    }
+
+    function resetProgress() {
+      const confirmed = confirm("Reset all roadmap progress, notes, extras, and daily tracker data?");
+      if (!confirmed) return;
+      state = { checked: {}, notes: {}, lastUpdated: null };
+      dailyState = {};
+      localStorage.removeItem(STORAGE_KEY);
+      localStorage.removeItem(DAILY_KEY);
+      renderAll();
+      showToast("Tracker reset");
+    }
+
+    function renderAll() {
+      renderRoadmap();
+      renderTimeline();
+      renderDailyTracker();
+      renderExtras();
+      updateDashboard();
+      applyFilters();
+    }
+
+    roadmapEl.addEventListener("change", event => {
+      const target = event.target;
+      if (target.classList.contains("road-item")) {
+        state.checked[target.dataset.itemId] = target.checked;
+        target.closest(".check-item")?.classList.toggle("is-checked", target.checked);
+        updatePhaseCard(target.dataset.phaseId);
+        updateDashboard();
+        renderTimeline();
+        saveState();
+        applyFilters();
+      }
+    });
+
+    roadmapEl.addEventListener("input", event => {
+      const target = event.target;
+      if (target.classList.contains("phase-notes")) {
+        state.notes[target.dataset.phaseId] = target.value;
+        saveState(false);
+      }
+    });
+
+    roadmapEl.addEventListener("click", event => {
+      const button = event.target.closest("button[data-action]");
+      if (!button) return;
+      const action = button.dataset.action;
+      if (action === "complete-phase") setPhaseCompletion(button.dataset.phaseId, true);
+      if (action === "clear-phase") setPhaseCompletion(button.dataset.phaseId, false);
+    });
+
+    timelineEl.addEventListener("click", event => {
+      const button = event.target.closest("button[data-scroll-to]");
+      if (!button) return;
+      document.getElementById(button.dataset.scrollTo)?.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+
+    extrasGridEl.addEventListener("change", event => {
+      const target = event.target;
+      if (target.classList.contains("extra-item")) {
+        state.checked[target.dataset.itemId] = target.checked;
+        saveState();
+      }
+    });
+
+    document.getElementById("dailyList").addEventListener("change", event => {
+      const target = event.target;
+      if (!target.classList.contains("daily-item")) return;
+      const key = todayKey();
+      if (!dailyState[key]) dailyState[key] = {};
+      dailyState[key][target.dataset.dailyId] = target.checked;
+      updateDailyLine();
+      saveDailyState();
+    });
+
+    searchInput.addEventListener("input", applyFilters);
+    filterSelect.addEventListener("change", applyFilters);
+    document.getElementById("exportBtn").addEventListener("click", exportProgress);
+    document.getElementById("importFile").addEventListener("change", event => {
+      const file = event.target.files[0];
+      if (file) importProgress(file);
+      event.target.value = "";
+    });
+    document.getElementById("resetBtn").addEventListener("click", resetProgress);
+    document.getElementById("printBtn").addEventListener("click", () => window.print());
+
+    document.getElementById("expandBtn").addEventListener("click", event => {
+      const details = Array.from(document.querySelectorAll("details.phase-detail"));
+      const shouldOpen = details.some(item => !item.open);
+      details.forEach(item => item.open = shouldOpen);
+      event.currentTarget.textContent = shouldOpen ? "Collapse all" : "Expand all";
+    });
+
+    renderAll();
